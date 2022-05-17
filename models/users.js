@@ -2,12 +2,37 @@ const mongoose = require('mongoose');
 
 
  userSchema =  mongoose.Schema({
-    name_lastName:{
+    name:{
+       
+        type: String,
+     
+    },
+    lastName:{
        
         type: String,
      
     },
     email:{
+       
+        type: String,
+     
+    },
+    phone:{
+       
+        type: String,
+     
+    },
+    civility:{
+       
+        type: String,
+     
+    },
+    post:{
+       
+        type: String,
+     
+    },
+    socialReason:{
        
         type: String,
      
@@ -21,6 +46,11 @@ const mongoose = require('mongoose');
        
         type: String,
      
+    },
+    role:{
+        type:String,
+        enum : ['ADMIN','EMPLOYEE','GERANT'],
+        default: 'EMPLOYEE'
     },
     isVerified: { type: Boolean, default: false },
 })

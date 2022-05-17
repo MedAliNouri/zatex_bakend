@@ -1,8 +1,12 @@
 const mongoose= require('mongoose')
 
 const userVerificationSchema = mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
-    verif_code:{
+    user: {
+       
+        type: String,
+     
+    },
+    hashedToken:{
        
         type: String,
      

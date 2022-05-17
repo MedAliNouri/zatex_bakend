@@ -26,19 +26,20 @@ class MailService {
         const filePath = path.join(__dirname, '../public/html/beefree-tkvp024xddj.html');
         var replacements = {
             token: hashedToken,
-            link:process.env.FRONT_END_LINK
+            link:process.env.FRONT_END_LINK_RESET_PASSWORD
        };
        this.readHtmlTemplateAndSend(filePath,replacements,send_to,subject)
        
     }
-    async  sendMailVerification  (send_to,subject,name,rand) {
+    async  sendMailVerification  (send_to,subject,name,hashedToken) {
       
         console.log("+++++++++++",process.env.MAIL_USER,process.env.MAIL_PASSWORD,)
            
             const filePath = path.join(__dirname, '../public/html/verification_mail.html');
             var replacements = {
                 name: name,
-                code:rand
+                link:process.env.FRONT_END_LINK_VERIFY_EMAIL,
+                code:hashedToken
            };
            this.readHtmlTemplateAndSend(filePath,replacements,send_to,subject)
            

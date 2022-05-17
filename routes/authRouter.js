@@ -6,7 +6,7 @@ class AuthRouter {
 }
 
 router.post('/login',async(req,res)=>{
-    console.log('work')
+
     try{
         const docs = await authService.login(req.body)
         res.header('TOKEN',docs.token).json(docs)
@@ -26,8 +26,28 @@ router.post('/restPassword',async(req,res)=>{
         res.json({status:false, message: err.message })
     }
 })
+router.post('/send_verification_mail',async(req,res)=>{
 
 
+    try{
+        const docs = await authService.send_verification_mail(req.body.email)
+        res.json({status:true, message: docs })
+    }catch(err){
+     console.log(err)
+        res.json({status:false, message: err.message })
+    }
+})
+router.post('/verify_mail',async(req,res)=>{
+
+
+    try{
+        const docs = await authService.verify_mail(req.body.token)
+        res.json({status:true, data: docs })
+    }catch(err){
+     console.log(err)
+        res.json({status:false, message: err.message })
+    }
+})
 router.get('/get_token_password/:id',async(req,res)=>{
     try{
         const doc = await authService.get_token_password(req.params.id)

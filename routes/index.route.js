@@ -1,5 +1,5 @@
 class routers{
-    constructor(app) {
+    constructor(app,authorize) {
         const userRouter=require('./user.route')
         app.use('/user',userRouter)
         const authRouter=require('./authRouter')
