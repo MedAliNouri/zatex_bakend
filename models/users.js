@@ -47,6 +47,11 @@ const mongoose = require('mongoose');
         type: String,
      
     },
+    gerant:{
+       
+        type: String,
+     
+    },
     role:{
         type:String,
         enum : ['ADMIN','EMPLOYEE','GERANT'],

@@ -29,7 +29,9 @@ async createUser(data,req){
     
     return user
 }
-
+async getEmployeeForGerant(id){
+return await userModel.find({gerant:id})
+}
 
 
  async change_password(user,password){
@@ -49,6 +51,13 @@ async createUser(data,req){
   async getAll(){
         
     const user =await userModel.find().select("-password")
+
+    return user
+
+   }
+   async getAllEmplyee(){
+        
+    const user =await userModel.find({'role':"EMPLOYEE"}).select("-password")
 
     return user
 

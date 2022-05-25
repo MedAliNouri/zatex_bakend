@@ -3,15 +3,15 @@ require('dotenv').config()
 module.exports =(req,res,next)=>{
   
   try{
-    console.log(req.headers.authorization)
-    const token = req?.headers?.authorization?.split(" ")[1];
-    jwt.verify(token,process.env.SECRET_TOKEN)
+//     console.log(req.headers.authorization)
+//     const token = req?.headers?.authorization?.split(" ")[1];
+//     jwt.verify(token,process.env.SECRET_TOKEN)
      
-         next();
+        next();
 
     
-  }catch(err){
-      // console.log(err)
+ }catch(err){
+
       res.status(401).send(err.message)
- }
+  }
 }

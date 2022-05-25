@@ -21,6 +21,28 @@ class userRouter {
         }
 
       })
+      router.get('/employee',async (req,res,next)=>{
+       
+        try{
+         const docs=   await userService.getAllEmplyee()
+            res.send(docs)
+        }catch(err){
+            console.log(err)
+            res.status(201).json({status:false, message: err.message })
+        }
+
+      })
+      router.get('/getEmployeeForGerant/:id',async (req,res,next)=>{
+       
+        try{
+         const docs=   await userService.getEmployeeForGerant(req.params.id)
+            res.send(docs)
+        }catch(err){
+            console.log(err)
+            res.status(201).json({status:false, message: err.message })
+        }
+
+      })
       router.get('/:id',async (req,res,next)=>{
        
         try{
