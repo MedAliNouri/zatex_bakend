@@ -5,6 +5,19 @@ require('dotenv').config()
 const path = require('path')
 const handlebars = require('handlebars');
 const fs = require('fs');
+const {google} = require('googleapis')
+
+const CLIENT_ID = "27716671923-dedb1kopf0mgbg8huo71ilup5bli8bhs.apps.googleusercontent.com"
+const ClIENT_SECRET = "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"
+const REDIRECT_URI = "https://developers.google.com/oauthplayground"
+const REFRESH_TOKEN = "1//04dHkEz_TxDidCgYIARAAGAQSNwF-L9IryozePy1ogKPvkMNaHYyi6XpF5KCkLvoZ1RcGbLv1bAi4UK3OteH0uEhKIPIhkO4Kr1w"
+
+const oAuth2Client = new google.auth.OAuth2(CLIENT_ID,ClIENT_SECRET,REDIRECT_URI)
+oAuth2Client.setCredentials({ refresh_token:REFRESH_TOKEN})
+
+async function sendMail(){
+
+}
 var readHTMLFile = function(path, callback) {
     fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
         if (err) {
@@ -48,19 +61,21 @@ class MailService {
 
 
 
-    readHtmlTemplateAndSend(filePath,replacements,send_to,subject){
+  async  readHtmlTemplateAndSend(filePath,replacements,send_to,subject){
+        const accessToken = await oAuth2Client.getAccessToken()
         var transporter = nodemailer.createTransport({
-            host:process.env.MAIL_HOST,
-            port: process.env.MAIL_PORT,
-            secure: false,
-            requireTLS: true,
+            service: 'Gmail',
+           
             auth:{
-                user:process.env.MAIL_USER,
-            pass:process.env.MAIL_PASSWORD
+                type: "OAuth2",
+                user:"zatextech09@gmail.com",
+            pass:"zatex12345",
+            clientId:CLIENT_ID,
+            clientSecret:ClIENT_SECRET,
+            refreshToken:REFRESH_TOKEN,
+            accessToken:accessToken
         },
-        tls: {
-            rejectUnauthorized: false
-        }
+   
         })
         // transporter.verify((err,sucess)=>{
         //     if(err){
@@ -75,7 +90,7 @@ class MailService {
           
         
             var template = handlebars.compile(html);
-            
+         
             var htmlToSend = template(replacements);
             var mailOptions = {
                 from: process.env.MAIL_USER,

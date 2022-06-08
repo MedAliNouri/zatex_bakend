@@ -4,7 +4,8 @@ const authorize = require('./middleware/verifyToken')
 const bodyParser = require('body-parser');
 var cors = require('cors')
 require('./config/db')
-routers= require('./routes/index.route')
+var socket = require('socket.io');
+routers = require('./routes/index.route')
 app.use(cors());
 
 app.use(bodyParser.urlencoded({
@@ -12,8 +13,15 @@ app.use(bodyParser.urlencoded({
   limit: '50mb'
 }));
 
-//  require('./src/services/mailService').sendMail()
-// userModel.create({name:'dali',lastName:'dali',email:'gameeforall@gmail.com',password:'dali',})
+var server = app.listen(4000,()=>{console.log('server work')})
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
+require('./services/socketService')(io)
+
+
 app.use(express.json({limit: '50mb'}));
 new routers(app,authorize)
-app.listen(4000,()=>{console.log('server work')})

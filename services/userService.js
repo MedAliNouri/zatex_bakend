@@ -33,6 +33,9 @@ async getEmployeeForGerant(id){
 return await userModel.find({gerant:id})
 }
 
+async getGerantForEmployee(id){
+  return await userModel.findById({'_id':id})
+}
 
  async change_password(user,password){
   const query={_id:user}
@@ -57,7 +60,7 @@ return await userModel.find({gerant:id})
    }
    async getAllEmplyee(){
         
-    const user =await userModel.find({'role':"EMPLOYEE"}).select("-password")
+    const user =await userModel.find({'role':"GERANT"}).select("-password")
 
     return user
 

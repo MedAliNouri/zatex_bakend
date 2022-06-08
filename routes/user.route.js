@@ -54,6 +54,7 @@ class userRouter {
         }
 
       })
+      
     router.post('/register',async (req,res,next)=>{
        
         try{

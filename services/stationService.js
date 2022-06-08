@@ -20,8 +20,9 @@ async delete(id){
 }
 async updateOne(data){
 
-
-    return await stationModel.findByIdAndUpdate({"_id":data._id},{ $set:data})
+let station = new stationModel(data)
+console.log(station)
+    return await stationModel.findByIdAndUpdate({"_id":data._id},{ $set:station})
 }
 }
 
